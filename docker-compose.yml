@@ -1,0 +1,17 @@
+services:
+  grayjay-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile-grayjay-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Grayjay.Desktop.Web:/app
+  grayjay-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile-grayjay-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Grayjay.Desktop.Headless:/App

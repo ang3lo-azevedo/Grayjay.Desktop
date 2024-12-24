@@ -1,0 +1,25 @@
+FROM node
+
+# Install Xvfb and other dependencies
+RUN apt-get update && apt-get install -y \
+    vite \
+    xvfb \
+    x11-xkb-utils \
+    xfonts-100dpi \
+    xfonts-75dpi \
+    xfonts-scalable \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY Grayjay.Desktop.Web/package.json ./
+
+RUN npm install
+
+COPY . ./
+
+EXPOSE 3000
+
+# Set the DISPLAY environment variable and start Xvfb before running the application
+ENV DISPLAY=:99
+# Start Xvfb before running the application
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x16 & npm run start"]
